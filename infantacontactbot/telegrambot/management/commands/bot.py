@@ -61,6 +61,11 @@ class Command(BaseCommand):
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
         self.chat_id = update.message.chat_id
+        save_to_bd(
+            chat_id=self.chat_id,
+            user_name=self.user_name,
+            text=update.message.text
+        )
         update.message.reply_text('Выберите бренд:', reply_markup=reply_markup)
         return self.BRAND
 
