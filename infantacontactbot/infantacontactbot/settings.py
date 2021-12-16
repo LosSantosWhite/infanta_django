@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'infantacontactbot.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'infanta_db',
+        'NAME': 'infantadb',
         'USER': os.getenv('postgresql_username'),
         'PASSWORD': os.getenv('postgresql_pswr'),
         'HOST': 'localhost',

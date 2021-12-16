@@ -21,5 +21,3 @@ emails_description = {
     "help@infanta-co.ru": "help@infanta-co.ru",
     "zakaz@infanta-co.ru": "zakaz@infanta-co.ru"
 }
-
-admin_chat = (314558056,)

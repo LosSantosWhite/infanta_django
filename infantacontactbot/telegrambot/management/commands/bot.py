@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from .scenario import brand_info, emails, admin_chat
+from .scenario import brand_info, emails
 from telegrambot.models import UserProfile, Messages
 from telegram.ext.filters import Filters
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
@@ -8,7 +8,7 @@ from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, Callback
     MessageHandler
 
 
-def save_to_bd(chat_id, user_name, text) -> None:
+def save_to_bd(chat_id, text, user_name=None) -> None:
     user, _ = UserProfile.objects.get_or_create(
         chat_id=chat_id,
         defaults={
@@ -32,6 +32,7 @@ def send_message(update: Update, context: CallbackContext):
         except Exception:
             user.active = False
             user.save()
+    return ConversationHandler.END
 
 
 class Command(BaseCommand):
@@ -169,23 +170,31 @@ class Command(BaseCommand):
     def help_command(self, update: Update, context: CallbackContext) -> None:
         save_to_bd(
             chat_id=self.chat_id,
-            user_name=self.user_name,
             text=update.message.text
         )
-        if update.message.chat_id in admin_chat:
+        try:
+            UserProfile.objects.get(
+                chat_id=update.message.chat_id,
+                is_admin=True
+            )
             text = '/contacts - контакты/ссылки на страницы Инфанты \n' \
                    '/send_to_all - отправка сообщения ВСЕМ пользователям бота ' \
                    '(как реклама каких-то товаров/ссылок/магазинов)'
-        else:
+        except Exception:
             text = '/contacts - ссылки на страницы соцсетей Joie / Swandoo \n'
         update.message.reply_text(text)
 
     def send_message_to_all_users(self, update: Update, context: CallbackContext):
-        if update.message.chat_id == 314558056:
+        try:
+            UserProfile.objects.get(
+                chat_id=update.message.chat_id,
+                is_admin=True
+            )
             update.message.reply_text('Напиши текст сообщения для всех пользователей:')
             return self.first
-        else:
-            update.message.reply_text('Не знаю тебя, хитрая жопа')
+        except Exception as err:
+            pass
+        return ConversationHandler.END
 
     def handle(self, *args, **options):
         updater = Updater(settings.BOT_TOKEN)

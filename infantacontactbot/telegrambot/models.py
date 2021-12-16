@@ -5,6 +5,7 @@ class UserProfile(models.Model):
     user_name = models.CharField(max_length=250, verbose_name='Имя пользователя', default='Без user_name')
     chat_id = models.IntegerField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_admin = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
 
     class Meta:
