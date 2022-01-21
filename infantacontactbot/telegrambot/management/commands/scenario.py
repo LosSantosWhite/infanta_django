@@ -15,11 +15,11 @@ brand_info = {
 emails = {
     "Почта для заказа (Юр.Лица)":  "zakaz@infanta-co.ru",
     "Почта для рекламации": "help@infanta-co.ru",
-    "Почта маркетинга и контента": "markering@infanta-co.ru",
+    "Почта маркетинга и контента": "marketing@infanta-co.ru",
 }
 
 emails_description = {
     "zakaz@infanta-co.ru": "Почта для заказа (Юр.Лица): zakaz@infanta-co.ru",
     "help@infanta-co.ru": "Почта для рекламации: help@infanta-co.ru",
-    "markering@infanta-co.ru": "Почта для маркетинга, контента: markering@infanta-co.ru",
+    "marketing@infanta-co.ru": "Почта для маркетинга, контента: marketing@infanta-co.ru",
 }
