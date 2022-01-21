@@ -19,7 +19,7 @@ emails = {
 }
 
 emails_description = {
-    "help@infanta-co.ru": "Почта для заказа (Юр.Лица): zakaz@infanta-co.ru",
-    "zakaz@infanta-co.ru": "Почта для рекламации: help@infanta-co.ru",
+    "zakaz@infanta-co.ru": "Почта для заказа (Юр.Лица): zakaz@infanta-co.ru",
+    "help@infanta-co.ru": "Почта для рекламации: help@infanta-co.ru",
     "markering@infanta-co.ru": "Почта для маркетинга, контента: markering@infanta-co.ru",
 }
