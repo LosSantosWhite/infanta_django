@@ -152,3 +152,5 @@ crashlytics-build.properties
 fabric.properties
 setenv.sh
 /venv/
+
+infantacontactbot/infantacontactbot/settings.py

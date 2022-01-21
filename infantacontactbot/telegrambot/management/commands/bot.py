@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.conf import settings
-from .scenario import brand_info, emails
+from .scenario import brand_info, emails, emails_description
 from telegrambot.models import UserProfile, Messages
 from telegram.ext.filters import Filters
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
@@ -101,8 +101,8 @@ class Command(BaseCommand):
             keyboard.append([InlineKeyboardButton(text=name, url=url)])
 
         reply_markup = InlineKeyboardMarkup(keyboard)
-        for name, email in emails.items():
-            keyboard.append([InlineKeyboardButton(text=name, callback_data=email)])
+        for name, params in emails.items():
+            keyboard.append([InlineKeyboardButton(text=name, callback_data=f'{params}')])
         keyboard.append([InlineKeyboardButton(text='Назад', callback_data='back')])
         query.edit_message_text(text=f"Бренд: {self.brand.upper()} \n"
                                      f"Доступные ссылки:", reply_markup=reply_markup)
@@ -124,10 +124,8 @@ class Command(BaseCommand):
         ]
 
         reply_markup = InlineKeyboardMarkup(keyboard)
-        if query.data.startswith("zakaz@"):
-            query.edit_message_text(text=f"Почта для заказа: {query.data}", reply_markup=reply_markup, )
-        else:
-            query.edit_message_text(text=f"Почта для рекламации: {query.data}", reply_markup=reply_markup)
+
+        query.edit_message_text(text=emails_description[query.data], reply_markup=reply_markup)
 
         return self.EMAIL
 
@@ -160,8 +158,8 @@ class Command(BaseCommand):
             keyboard.append([InlineKeyboardButton(text=name, url=url)])
 
         reply_markup = InlineKeyboardMarkup(keyboard)
-        for name, email in emails.items():
-            keyboard.append([InlineKeyboardButton(text=name, callback_data=email)])
+        for name, params in emails.items():
+            keyboard.append([InlineKeyboardButton(text=name, callback_data=params)])
         keyboard.append([InlineKeyboardButton(text='Назад', callback_data='back')])
         query.edit_message_text(text="Доступные ссылки: ", reply_markup=reply_markup)
 
